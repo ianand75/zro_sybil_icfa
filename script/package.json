@@ -1,0 +1,26 @@
+{
+  "name": "script",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "user": "babel-node"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
+    "axios": "^1.4.0",
+    "crypto-random-string": "^3.3.1",
+    "csv-writer": "^1.6.0",
+    "date-and-time": "^2.0.1",
+    "dotenv": "^10.0.0",
+    "lodash": "^4.17.21",
+    "mini-task-clirunner": "https://github.com/TheOldManStudio/mini-task-clirunner.git#main"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11"
+  }
+}
