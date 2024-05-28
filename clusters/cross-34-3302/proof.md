@@ -10,7 +10,6 @@ see address.csv file
 
 This cluster, funded by **Indirect Common Funder**, employs smart contracts to obscure the from-to relationship of fund transfers. It contains over 20 addresses sourced from the snapshot database, none of which are initially labeled. The funder address originates from a non-CEX source. Notably, batch funding activities on this cluster has been observed across multiple chains, as listed below. These factors strongly suggest the cluster's potential for being a sybil, controlled and financed by a single entity.
 
-
 ---
 
 **Chain**
@@ -30,7 +29,6 @@ bsc
 https://bscscan.com/tx/0xf1ee7e87010dd4d33d168c83294e9c619bcd8b03473d5e0189b3bd52b68979d7
 https://bscscan.com/tx/0x1e2ac9ffe6ed72decd65bd864e41f1bc1ed77f08f878fc09789713fdbd448c15
 https://bscscan.com/tx/0x8fa394d8dfa758d9eb057ef57110df09ad91a94d0b81d082dfbc3c83012a16bc
-
 
 ---
 
@@ -58,7 +56,6 @@ https://polygonscan.com/tx/0xdca9390794166c9d7499b995d2c9dc212e421398a7620593b27
 https://polygonscan.com/tx/0x003bcb8d85f662353da3506954b52cac4257c43be89f946367aee5db84fca340
 https://polygonscan.com/tx/0x714e0bf6c7b443797f837b53c84607acd3b6704d2609329080f9dcdbec7877ff
 https://polygonscan.com/tx/0xda0cf65d23e5152dd1e1aa16d3776184777af9179c6e7569475b46f73582ae16
-
 
 ---
 
@@ -89,7 +86,6 @@ https://arbiscan.io/tx/0x76f9ef277b8441d59fca1d0b7a44544c1d8e9df3d35a0d65b132fc8
 https://arbiscan.io/tx/0xe0b4ce1f06e9cc49f38d525016391a7093f3ae6cf6561a8c50ea432d531e576c
 https://arbiscan.io/tx/0x345cf85a171aa8c78259973fade7c64b7d4adcc90e7a599efd70f7f172a12637
 
-
 ---
 
 **Chain**
@@ -113,3 +109,14 @@ https://optimistic.etherscan.io/tx/0x40344be41b15e065b30dc349e2c73d547349faf2431
 https://optimistic.etherscan.io/tx/0x725de9e4d56ba5a1b5ccba4a1090fbb39c36951d61c0e47a4c557a7de8bc1cce
 https://optimistic.etherscan.io/tx/0x94cef81645335ced4fbb5053be36e9d27a068b80692a73dd1b47b38aebf70ae9
 
+# Cross-chain activity overlap outline
+
+                       1123
+          arb(1584) ----------  op(1174)
+           /      \                /
+          / 2       \  1135       /  1135
+         /            \          /
+     bsc(127) --------  polygon(2821)
+                117
+
+A node represents cluster found on chain 'xxx' with it's size. An edge and its weight represents number of address overlap between two chains.
