@@ -64,3 +64,7 @@ https://optimistic.etherscan.io/tx/0xd99d61fdd3eeb2d3768b8a97d0d7d992af058cace37
           arb(199) ----------  op(110)
 
 A node represents cluster found on chain 'xxx' with it's size. An edge and its weight represents number of address overlap between two chains.
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

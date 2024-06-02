@@ -29,3 +29,7 @@ BSC Mainnet
 https://bscscan.com/tx/0x0be9b21db2e6cb55b4970bfbb051651a48471029ac808bd3f6ea4d410fb572d6
 https://bscscan.com/tx/0x59cb7a49dce8ef722f24cf8ef193297ab2b1cf38161730577b53c88733b965f5
 https://bscscan.com/tx/0xeb1e1fbbd169959d91dba377f903aa7997a08c7dfb59f0209a73af7d7019695c
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

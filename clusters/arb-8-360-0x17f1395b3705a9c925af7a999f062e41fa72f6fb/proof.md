@@ -27,3 +27,7 @@ Arbitrium One
 # Transactions that executed the fund transfer
 
 https://arbiscan.io/tx/0x9f833c5fb48511ec75fb8113638acf5f2b6abbb86b5f393c1edc82508d09b653
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

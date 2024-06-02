@@ -27,3 +27,7 @@ Fantom
 # Transactions that executed the fund transfer
 
 https://ftmscan.com/tx/0x61b6eeed8b795ab5a50691e3e774d6655ee85d69d59d9c8ecfd73b5d3d91ac9e
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

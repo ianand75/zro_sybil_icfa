@@ -28,3 +28,7 @@ Fantom
 
 https://ftmscan.com/tx/0x538a5092befc2481659536d70fa3b22c0b4d80e0104581b75545e1a31a7ca619
 https://ftmscan.com/tx/0xca28c870ef1af156da0acb7fe4942e19b5596a15771c2ec1fb71cc7f0e9c035c
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

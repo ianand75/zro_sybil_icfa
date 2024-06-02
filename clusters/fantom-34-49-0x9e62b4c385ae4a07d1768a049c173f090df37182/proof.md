@@ -13,8 +13,86 @@ This cluster is funded by an Indirect Common Funder who uses a smart contract to
 - The number of addresses in this cluster is larger than 20.
 - Each address is from the snapshot database and not already labeled.
 - The funder address is not from a centralized exchange (CEX).
+- cluster addresses are behaviorally not independent.
 
-This cluster is highly suspected of being a sybil, as it is funded and controlled by a single entity.
+# Behavioral verification
+
+
+We create a unique identifier (PSD) for a transaction by concatenating the following attributes together.
+
+$$
+\text{PSD} = \text{concat}( \text{SOURCE\_CHAIN}, \text{SOURCE\_CONTRACT}, \text{DESTINATION\_CHAIN}, \text{DESTINATION\_CONTRACT})
+$$
+
+From the snapshot database, we calculate the PSD frequencies.
+
+$$ p_i = \text{freq}(PSD_i) $$
+
+There are more than 63000 different transactions in total and the most called transaction is
+
+$$
+p_{max} = p(Arbitrum_0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd_Optimism_0x701a95707a0) =  0.031870928992508665
+$$
+
+
+The Greatest Common Transaction Set (GCTS) is a set of unique transaction patterns shared among users within a cluster. The presence of a GCTS suggests that users within the group are engaging in similar transactions or following common strategies.
+
+$$
+\text{GCTS} = \{ \text{PSD}_1, \text{PSD}_2, \ldots, \text{PSD}_k \}
+$$
+
+
+We calculate the probability that a group of $n$ **independent** users has a GCTS of size $k$, where each $PSD_𝑖$ has a frequency $p_i$.
+​
+
+- Probability of a single user including a specific $PSD_i$, the probability is $p_i$
+- For all n users to include the same PSD, the probability is $p_i^n$
+- Probability of Including a Specific Set of 𝑘 PSDs:
+  The probability that all $n$ users include the same specific set of $k$ PSDs (let's call this set $GCTS=\{PSD_1,PSD_2,…,PSD_𝑘\}$) is the product of the individual probabilities:
+  $$
+  P(GCTS = k | group\ is\ independent) = \prod_{i=1}^{k} p_i^n
+  $$
+
+when $n > 20$ and $p_{max} < 0.032$
+
+$$
+P(CGTS = 1 | group\ is\ independent) < 0.032^{20} = 1.267*10^{-30} \rightarrow 0
+$$
+
+Therefore, the probability for an independent group of users to have GCTS is close to 0.
+
+
+$P(\text{group is not independent} | \text{GCTS} > 0) \rightarrow 1$ for group of users larger than 20.
+
+According to Bayesian Inference:
+
+$$
+P(\text{group is not independent } | \text{GCTS} > 0) = \frac{P(\text{GCTS} > 0 | \text{group is not independent}) \cdot P(\text{group is not independent})}{P(\text{GCTS} > 0 | \text{group is independent}) \cdot P(\text{group is independent}) + P(\text{GCTS} > 0 | \text{group is not independent}) \cdot P(\text{group is not independent})}
+$$
+
+where
+
+- Prior Probability:
+  We assume $P(\text{group is not independent}) = 0.5$
+
+- Likelihood:
+  $P(\text{GCTS} > 0 | \text{group is not independent})$
+  This is the probability of observing a GCTS if the group is indeed not acting independently.
+
+- Likelihood Under Independence:
+  $P(\text{GCTS} > 0 | \text{group is independent})$
+  This is the expected probability of a GCTS for a group of independent users. The value $P \rightarrow 0$ as we calculate earlier.
+
+- Prior Probability of Independence:
+  $P(\text{group is independent}) = 0.5$
+  Since the prior probability of the group being not independent is 0.5, this is also 0.5.
+
+Given ​$P(\text{GCTS} > 0 | \text{group is independent}) \rightarrow 0$, plug into
+
+$$
+P(\text{group is not independent } | \text{GCTS} > 0) = \frac{P(\text{GCTS} > 0 | \text{group is not independent}) \cdot 0.5}{0 \cdot 0.5 + P(\text{GCTS} > 0 | \text{group is not independent}) \cdot 0.5}
+\rightarrow 1
+$$
 
 # Chain
 
@@ -27,3 +105,27 @@ Fantom
 # Transactions that executed the fund transfer
 
 https://ftmscan.com/tx/0x0f402b26236f14f75da21a8d3c527b8acd452038b53ff61ff48f02d0d2b70f40
+
+# Observed GCTS
+
+17 common PSDs observed:
+
+Polygon_0x222228060e7efbb1d78bb5d454581910e3922222_Harmony_0x222228060e7efbb1d78bb5d454581910e3922222
+Polygon_0xa184998ec58dc1da77a1f9f1e361541257a50cf4_Moonriver_0x97337a9710beb17b8d77ca9175defba5e9afe62e
+Arbitrum_0x2297aebd383787a160dd0d9f71508148769342e3_Optimism_0x2297aebd383787a160dd0d9f71508148769342e3
+Polygon_0x222228060e7efbb1d78bb5d454581910e3922222_Celo Mainnet_0x222228060e7efbb1d78bb5d454581910e3922222
+Polygon_0x523d5581a0bb8bb2bc9f23b5202894e31124ea3e_Celo Mainnet_0x83017335bae4837016311bdb75df5a320b54d636
+BNB Chain_0x128aedc7f41ffb82131215e1722d8366faad0cd4_Harmony_0x7ffd57563ef54c464f23b5497dd1f54481e4c008
+Polygon_0x0e1f20075c90ab31fc2dd91e536e6990262cf76d_Celo Mainnet_0xc20a842e1fc2681920c1a190552a2f13c46e7fcf
+Gnosis_0xb58f5110855fbef7a715d325d60543e7d4c18143_Fuse Mainnet_0xffd57b46bd670b0461c7c3ebbaedc4cdb7c4fb80
+Arbitrum_0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd_Polygon_0x9d1b1669c73b033dfe47ae5a0164ab96df25b944
+Celo Mainnet_0x83017335bae4837016311bdb75df5a320b54d636_Fuse Mainnet_0x811bcf49225ffe8039989a30cf5c03f60660753d
+Optimism_0x2297aebd383787a160dd0d9f71508148769342e3_Arbitrum_0x2297aebd383787a160dd0d9f71508148769342e3
+Celo Mainnet_0xc20a842e1fc2681920c1a190552a2f13c46e7fcf_Fuse Mainnet_0xf6b88c4a86965170dd42dbb8b53e790b3490b912
+Polygon_0xa184998ec58dc1da77a1f9f1e361541257a50cf4_Gnosis_0xb58f5110855fbef7a715d325d60543e7d4c18143
+Celo Mainnet_0xe33519c400b8f040e73aeda2f45dfdd4634a7ca0_Fuse Mainnet_0xffd57b46bd670b0461c7c3ebbaedc4cdb7c4fb80
+Polygon_0xa184998ec58dc1da77a1f9f1e361541257a50cf4_Celo Mainnet_0xe33519c400b8f040e73aeda2f45dfdd4634a7ca0
+Harmony_0x222228060e7efbb1d78bb5d454581910e3922222_Moonbeam_0x222228060e7efbb1d78bb5d454581910e3922222
+Moonriver_0x97337a9710beb17b8d77ca9175defba5e9afe62e_Kava_0x04866796aabb6b58e6bc4d91a2ae99105b2c58ae
+
+Therefore this cluster is highly suspected of being a sybil, as it is funded and controlled by a single entity.

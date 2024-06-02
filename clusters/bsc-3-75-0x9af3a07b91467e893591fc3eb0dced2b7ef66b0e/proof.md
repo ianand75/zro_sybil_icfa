@@ -27,3 +27,7 @@ BSC Mainnet
 # Transactions that executed the fund transfer
 
 https://bscscan.com/tx/0x664bae2a4562a84d003787b861f5dc37fbd78ef60ba57fd93fc8df30ab17f98f
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

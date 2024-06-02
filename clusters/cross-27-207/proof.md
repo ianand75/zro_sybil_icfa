@@ -10,7 +10,6 @@ see address.csv file
 
 This cluster, funded by **Indirect Common Funder**, employs smart contracts to obscure the from-to relationship of fund transfers. It contains over 20 addresses sourced from the snapshot database, none of which are initially labeled. The funder address originates from a non-CEX source. Notably, batch funding activities on this cluster has been observed across multiple chains, as listed below. These factors strongly suggest the cluster's potential for being a sybil, controlled and financed by a single entity.
 
-
 ---
 
 **Chain**
@@ -29,7 +28,6 @@ fantom
 
 https://ftmscan.com/tx/0xabd1c1da202e5cd0516bb8175fbe1258ab4988e9c10e41d9f67b8426e7704826
 
-
 ---
 
 **Chain**
@@ -47,7 +45,6 @@ polygon
 **Transactions executing fund transfer**
 
 https://polygonscan.com/tx/0xccfb2c7ec5494839db22cd55cdfb1c4079dac245a744c328df53a6535dcbffe0
-
 
 ---
 
@@ -70,3 +67,6 @@ https://arbiscan.io/tx/0x84afc10cf18dffe2e8e0b7b57ad219cb7a9e29aebba2f52cd1e5790
 https://arbiscan.io/tx/0x81f5ac0b68beb91d42582c25edacd0d4278f55459d94b3688cc9bacb84e0b07f
 https://arbiscan.io/tx/0x216965f2732c482fd2fa76678f3104de75e823d6783370583e2e55a5d0ba1a90
 
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

@@ -22,7 +22,7 @@ OKChain
 
 # Funder address
 
-0x35f842a278535b0efbe153495466772db9e2c61c          
+0x35f842a278535b0efbe153495466772db9e2c61c
 
 # Transactions that executed the fund transfer
 
@@ -30,3 +30,7 @@ https://www.oklink.com/oktc/tx/0x7d91e04901885ca1e5454f20f97fa405faa09a1791517d9
 https://www.oklink.com/oktc/tx/0x3df7768a793c3c49b7da602d4a0205721e17cd30a94143a88a01e48cb116137b
 https://www.oklink.com/oktc/tx/0xfc3cfd2129ade24f61b37d73e413f767d59389162c336ef79fe4ebaaaf9265a2
 https://www.oklink.com/oktc/tx/0xca83ba9319301880ec94c2e73d1b547b136a73742ba077c4307ab96b26cb8dc8
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.

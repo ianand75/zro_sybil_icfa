@@ -27,3 +27,7 @@ OP Mainnet
 # Transactions that executed the fund transfer
 
 https://optimistic.etherscan.io/tx/0xbd698b5d0a367c6cec82d3ae1ac6ce91312d49d597211922de03149f97c865e8
+
+# Behavioral Verification
+
+Can't verifify Behavior of the cluster. False Positive.
