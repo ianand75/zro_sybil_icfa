@@ -17,12 +17,11 @@ This cluster is funded by an Indirect Common Funder who uses a smart contract to
 
 # Behavioral verification
 
+**PSD**
 
-We create a unique identifier (PSD) for a transaction by concatenating the following attributes together.
+We create a unique transaction identifier PSD by concatenating the following attributes together.
 
-$$
-\text{PSD} = \text{concat}( \text{SOURCE\_CHAIN}, \text{SOURCE\_CONTRACT}, \text{DESTINATION\_CHAIN}, \text{DESTINATION\_CONTRACT})
-$$
+PSD = concat(SOURCE_CHAIN, SOURCE_CONTRACT, DESTINATION_CHAIN, DESTINATION_CONTRACT)
 
 From the snapshot database, we calculate the PSD frequencies.
 
@@ -31,9 +30,10 @@ $$ p_i = \text{freq}(PSD_i) $$
 There are more than 63000 different transactions in total and the most called transaction is
 
 $$
-p_{max} = p(Arbitrum_0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd_Optimism_0x701a95707a0) =  0.031870928992508665
+p_{max} = p(Arbitrum_0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd_Optimism_0x701a95707a0) = 0.031870928992508665
 $$
 
+**Greatest Common Transaction Set (GCTS)**
 
 The Greatest Common Transaction Set (GCTS) is a set of unique transaction patterns shared among users within a cluster. The presence of a GCTS suggests that users within the group are engaging in similar transactions or following common strategies.
 
@@ -41,6 +41,7 @@ $$
 \text{GCTS} = \{ \text{PSD}_1, \text{PSD}_2, \ldots, \text{PSD}_k \}
 $$
 
+**GCTS under independent user group**
 
 We calculate the probability that a group of $n$ **independent** users has a GCTS of size $k$, where each $PSD_𝑖$ has a frequency $p_i$.
 ​
@@ -49,9 +50,10 @@ We calculate the probability that a group of $n$ **independent** users has a GCT
 - For all n users to include the same PSD, the probability is $p_i^n$
 - Probability of Including a Specific Set of 𝑘 PSDs:
   The probability that all $n$ users include the same specific set of $k$ PSDs (let's call this set $GCTS=\{PSD_1,PSD_2,…,PSD_𝑘\}$) is the product of the individual probabilities:
-  $$
-  P(GCTS = k | group\ is\ independent) = \prod_{i=1}^{k} p_i^n
-  $$
+
+$$
+P(GCTS = k | group\ is\ independent) = \prod_{i=1}^{k} p_i^n
+$$
 
 when $n > 20$ and $p_{max} < 0.032$
 
@@ -61,8 +63,9 @@ $$
 
 Therefore, the probability for an independent group of users to have GCTS is close to 0.
 
+**Users are not independent if GCTS observed**
 
-$P(\text{group is not independent} | \text{GCTS} > 0) \rightarrow 1$ for group of users larger than 20.
+i.e. $P(\text{group is not independent} | \text{GCTS} > 0) \rightarrow 1$ for group of users larger than 20.
 
 According to Bayesian Inference:
 
@@ -87,7 +90,13 @@ where
   $P(\text{group is independent}) = 0.5$
   Since the prior probability of the group being not independent is 0.5, this is also 0.5.
 
-Given ​$P(\text{GCTS} > 0 | \text{group is independent}) \rightarrow 0$, plug into
+Plug ​
+
+$$
+P(\text{GCTS } > 0 | \text{group is independent }) \rightarrow 0
+$$
+
+into
 
 $$
 P(\text{group is not independent } | \text{GCTS} > 0) = \frac{P(\text{GCTS} > 0 | \text{group is not independent}) \cdot 0.5}{0 \cdot 0.5 + P(\text{GCTS} > 0 | \text{group is not independent}) \cdot 0.5}
@@ -112,19 +121,19 @@ https://ftmscan.com/tx/0x0961733d89b813ac3dec077db13a34e8ee1d78cc08391b0bc23dcd9
 
 14 common PSDs observed:
 
-Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Core Blockchain Mainnet_0xc7cc66a88e2f121fb104344eacb7ba7bcae79dfa
-BNB Chain_0xb0d502e938ed5f4df2e681fe6e419ff29631d62b_Avalanche_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590
+Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Canto_0x0e2cfd13566578ead8296e8b1813619c4fbc5edc
+Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Moonriver_0x8582a8f68faf6c2c5b5f4a1eb28122acf09fefee
+Avalanche_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590_BNB Chain_0xb0d502e938ed5f4df2e681fe6e419ff29631d62b
 Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Mantle_0x5f45cd59ba7f2f6bcd935663f68ee1debe3b8a10
 Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Kava_0x921b486cc33580af7d8208df1619383470d5dcbe
-Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Tenet_0x021b4878be1ce222e5d1625ed7dbcb7cd80cf245
-Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Meter Mainnet_0x1aaac4484402c026b30d3d4272e99679664a18fc
-Avalanche_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590_BNB Chain_0xb0d502e938ed5f4df2e681fe6e419ff29631d62b
-Celo Mainnet_0xf1ddcaca7d17f8030ab2eb54f2d9811365efe123_Gnosis_0xfa5ed56a203466cbbc2430a43c66b9d8723528e7
-Fantom_0xa07f2e99eaa338acf66337baf99551bdcfd3ab00_DFK_0xdb3bb6d5a8eeeafc64c66c176900e6b82b23dd5f
-Gnosis_0xfa5ed56a203466cbbc2430a43c66b9d8723528e7_Celo Mainnet_0xf1ddcaca7d17f8030ab2eb54f2d9811365efe123
 Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Arbitrum Nova_0x148caf6ffbaba15f35dee7e2813d1f4c6da288f3
-Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Canto_0x0e2cfd13566578ead8296e8b1813619c4fbc5edc
 Fantom_0xa07f2e99eaa338acf66337baf99551bdcfd3ab00_Arbitrum Nova_0x148caf6ffbaba15f35dee7e2813d1f4c6da288f3
-Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Moonriver_0x8582a8f68faf6c2c5b5f4a1eb28122acf09fefee
+Celo Mainnet_0xf1ddcaca7d17f8030ab2eb54f2d9811365efe123_Gnosis_0xfa5ed56a203466cbbc2430a43c66b9d8723528e7
+Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Tenet_0x021b4878be1ce222e5d1625ed7dbcb7cd80cf245
+Gnosis_0xfa5ed56a203466cbbc2430a43c66b9d8723528e7_Celo Mainnet_0xf1ddcaca7d17f8030ab2eb54f2d9811365efe123
+Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Meter Mainnet_0x1aaac4484402c026b30d3d4272e99679664a18fc
+BNB Chain_0xb0d502e938ed5f4df2e681fe6e419ff29631d62b_Avalanche_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590
+Polygon_0x70ea00ab512d13dac5001c968f8d2263d179e2d2_Core Blockchain Mainnet_0xc7cc66a88e2f121fb104344eacb7ba7bcae79dfa
+Fantom_0xa07f2e99eaa338acf66337baf99551bdcfd3ab00_DFK_0xdb3bb6d5a8eeeafc64c66c176900e6b82b23dd5f
 
 Therefore this cluster is highly suspected of being a sybil, as it is funded and controlled by a single entity.

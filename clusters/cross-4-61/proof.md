@@ -14,12 +14,11 @@ Also, We do behavioral verfication on this cluster to show this cluster is not o
 
 # Behavioral verification
 
+**PSD**
 
-We create a unique identifier (PSD) for a transaction by concatenating the following attributes together.
+We create a unique transaction identifier PSD by concatenating the following attributes together.
 
-$$
-\text{PSD} = \text{concat}( \text{SOURCE\_CHAIN}, \text{SOURCE\_CONTRACT}, \text{DESTINATION\_CHAIN}, \text{DESTINATION\_CONTRACT})
-$$
+PSD = concat(SOURCE_CHAIN, SOURCE_CONTRACT, DESTINATION_CHAIN, DESTINATION_CONTRACT)
 
 From the snapshot database, we calculate the PSD frequencies.
 
@@ -28,9 +27,10 @@ $$ p_i = \text{freq}(PSD_i) $$
 There are more than 63000 different transactions in total and the most called transaction is
 
 $$
-p_{max} = p(Arbitrum_0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd_Optimism_0x701a95707a0) =  0.031870928992508665
+p_{max} = p(Arbitrum_0x352d8275aae3e0c2404d9f68f6cee084b5beb3dd_Optimism_0x701a95707a0) = 0.031870928992508665
 $$
 
+**Greatest Common Transaction Set (GCTS)**
 
 The Greatest Common Transaction Set (GCTS) is a set of unique transaction patterns shared among users within a cluster. The presence of a GCTS suggests that users within the group are engaging in similar transactions or following common strategies.
 
@@ -38,6 +38,7 @@ $$
 \text{GCTS} = \{ \text{PSD}_1, \text{PSD}_2, \ldots, \text{PSD}_k \}
 $$
 
+**GCTS under independent user group**
 
 We calculate the probability that a group of $n$ **independent** users has a GCTS of size $k$, where each $PSD_𝑖$ has a frequency $p_i$.
 ​
@@ -46,9 +47,10 @@ We calculate the probability that a group of $n$ **independent** users has a GCT
 - For all n users to include the same PSD, the probability is $p_i^n$
 - Probability of Including a Specific Set of 𝑘 PSDs:
   The probability that all $n$ users include the same specific set of $k$ PSDs (let's call this set $GCTS=\{PSD_1,PSD_2,…,PSD_𝑘\}$) is the product of the individual probabilities:
-  $$
-  P(GCTS = k | group\ is\ independent) = \prod_{i=1}^{k} p_i^n
-  $$
+
+$$
+P(GCTS = k | group\ is\ independent) = \prod_{i=1}^{k} p_i^n
+$$
 
 when $n > 20$ and $p_{max} < 0.032$
 
@@ -58,8 +60,9 @@ $$
 
 Therefore, the probability for an independent group of users to have GCTS is close to 0.
 
+**Users are not independent if GCTS observed**
 
-$P(\text{group is not independent} | \text{GCTS} > 0) \rightarrow 1$ for group of users larger than 20.
+i.e. $P(\text{group is not independent} | \text{GCTS} > 0) \rightarrow 1$ for group of users larger than 20.
 
 According to Bayesian Inference:
 
@@ -84,7 +87,13 @@ where
   $P(\text{group is independent}) = 0.5$
   Since the prior probability of the group being not independent is 0.5, this is also 0.5.
 
-Given ​$P(\text{GCTS} > 0 | \text{group is independent}) \rightarrow 0$, plug into
+Plug ​
+
+$$
+P(\text{GCTS } > 0 | \text{group is independent }) \rightarrow 0
+$$
+
+into
 
 $$
 P(\text{group is not independent } | \text{GCTS} > 0) = \frac{P(\text{GCTS} > 0 | \text{group is not independent}) \cdot 0.5}{0 \cdot 0.5 + P(\text{GCTS} > 0 | \text{group is not independent}) \cdot 0.5}
@@ -136,12 +145,12 @@ https://polygonscan.com/tx/0xc241c22fa3df6852d9f611d50a79e23228185fc8fb761cbe848
 
 7 common PSDs observed:
 
-Polygon_0x9d1b1669c73b033dfe47ae5a0164ab96df25b944_Fantom_0x45a01e4e04f14f7a4a6702c74187c5f6222033cd
-Fantom_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590_Polygon_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590
-BNB Chain_0x128aedc7f41ffb82131215e1722d8366faad0cd4_Harmony_0x7ffd57563ef54c464f23b5497dd1f54481e4c008
-Celo Mainnet_0xf1ddcaca7d17f8030ab2eb54f2d9811365efe123_Gnosis_0xfa5ed56a203466cbbc2430a43c66b9d8723528e7
-Fantom_0x45a01e4e04f14f7a4a6702c74187c5f6222033cd_Polygon_0x9d1b1669c73b033dfe47ae5a0164ab96df25b944
 Gnosis_0xfa5ed56a203466cbbc2430a43c66b9d8723528e7_Celo Mainnet_0xf1ddcaca7d17f8030ab2eb54f2d9811365efe123
+BNB Chain_0x128aedc7f41ffb82131215e1722d8366faad0cd4_Harmony_0x7ffd57563ef54c464f23b5497dd1f54481e4c008
+Fantom_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590_Polygon_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590
+Polygon_0x9d1b1669c73b033dfe47ae5a0164ab96df25b944_Fantom_0x45a01e4e04f14f7a4a6702c74187c5f6222033cd
+Fantom_0x45a01e4e04f14f7a4a6702c74187c5f6222033cd_Polygon_0x9d1b1669c73b033dfe47ae5a0164ab96df25b944
 Polygon_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590_Fantom_0x2f6f07cdcf3588944bf4c42ac74ff24bf56e7590
+Celo Mainnet_0xf1ddcaca7d17f8030ab2eb54f2d9811365efe123_Gnosis_0xfa5ed56a203466cbbc2430a43c66b9d8723528e7
 
 Therefore this cluster is highly suspected of being a sybil, as it is funded and controlled by a single entity.
